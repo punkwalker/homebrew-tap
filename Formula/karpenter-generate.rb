@@ -5,21 +5,21 @@
 class KarpenterGenerate < Formula
   desc "A simple CLI tool to generate Karpenter CRDs from EKS Managed Node Groups"
   homepage "https://github.com/punkwalker/karpenter-generate"
-  version "0.0.3"
+  version "0.0.4"
   license "MIT-0"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/punkwalker/karpenter-generate/releases/download/v0.0.3/karpenter-generate_Darwin_x86_64.tar.gz"
-      sha256 "c0876eaf3a524e632fb03f6ee1522ca4a6dd8b6647d13bc826721f6442679633"
+    on_intel do
+      url "https://github.com/punkwalker/karpenter-generate/releases/download/v0.0.4/karpenter-generate_Darwin_x86_64.tar.gz"
+      sha256 "d925084b9843812e0a63c21804bb8f11317582188599bc103238ebc3a8d38847"
 
       def install
         bin.install "karpenter-generate"
       end
     end
-    if Hardware::CPU.arm?
-      url "https://github.com/punkwalker/karpenter-generate/releases/download/v0.0.3/karpenter-generate_Darwin_arm64.tar.gz"
-      sha256 "096a07802857c3bc2a06b80c8c3aa1d04e9558b5ba094d9cbef00c22e8fe560e"
+    on_arm do
+      url "https://github.com/punkwalker/karpenter-generate/releases/download/v0.0.4/karpenter-generate_Darwin_arm64.tar.gz"
+      sha256 "0ed13ebc0dee686b8171740a1c56766caddec89b649292827397b2580de19913"
 
       def install
         bin.install "karpenter-generate"
@@ -28,20 +28,24 @@ class KarpenterGenerate < Formula
   end
 
   on_linux do
-    if Hardware::CPU.intel?
-      url "https://github.com/punkwalker/karpenter-generate/releases/download/v0.0.3/karpenter-generate_Linux_x86_64.tar.gz"
-      sha256 "49ed94a8ad184f64c043001cbb4a95d285a90ec3517a2480fcfc46a07c1a6579"
+    on_intel do
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/punkwalker/karpenter-generate/releases/download/v0.0.4/karpenter-generate_Linux_x86_64.tar.gz"
+        sha256 "5b970e8e60ccec5f7876fe9e7024f84e2908a532a253368ffa7e75cb701dae9a"
 
-      def install
-        bin.install "karpenter-generate"
+        def install
+          bin.install "karpenter-generate"
+        end
       end
     end
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/punkwalker/karpenter-generate/releases/download/v0.0.3/karpenter-generate_Linux_arm64.tar.gz"
-      sha256 "f01382609aca4540f2e139e64512232f5658acc50975fa18cf6ad07a85120ff3"
+    on_arm do
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/punkwalker/karpenter-generate/releases/download/v0.0.4/karpenter-generate_Linux_arm64.tar.gz"
+        sha256 "e5311085a60ebaf7a8fe87affe5d682ddab2010824c226b0e64b54e51f1eaf81"
 
-      def install
-        bin.install "karpenter-generate"
+        def install
+          bin.install "karpenter-generate"
+        end
       end
     end
   end
